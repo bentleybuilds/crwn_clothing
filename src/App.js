@@ -5,7 +5,7 @@ import LandingPage from './pages/landingPage/landingPage.jsx'
 import ShopPage from './pages/shop/shop.jsx'
 import SignInAndSignUpPage from './pages/signIn/signInAndSignUp.jsx'
 import Header from './components/header/header.jsx'
-import { auth } from './firebase/firebase.utils.js'
+import { auth, createUserProfileDocument } from './firebase/firebase.utils.js'
 
 
 
@@ -20,8 +20,21 @@ class App extends React.Component {
   unsubcribeFromAuth = null
 
   componentDidMount() {
-    this.unsubcribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user })
+    this.unsubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          })
+          console.log(this.state)
+        })
+      }  
+      this.setState({currentUser:userAuth})
     })
   }
 
