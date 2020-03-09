@@ -7,14 +7,14 @@ import './header.scss';
 
 const Header = ({currentUser}) => (
     <div className='header'>
-        <Link className='logoContainer' to='/crwn_clothing'>
+        <Link className='logoContainer' to='/'>
             <Logo className='Logo' />
         </Link>
         <div className='options'>
-            <Link className='option' to='/crwn_clothing/shop'>
+            <Link className='option' to='/shop'>
                 SHOP
             </Link>
-            <Link className='option' to='/crwn_clothing/contact'>
+            <Link className='option' to='/contact'>
                 CONTACT
             </Link>
             {
@@ -23,7 +23,7 @@ const Header = ({currentUser}) => (
                     SIGN OUT
                 </div>
                 :
-                <Link className='option' to='/crwn_clothing/signIn'>
+                <Link className='option' to='/signIn'>
                     SIGN IN
                 </Link>
             }
