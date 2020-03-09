@@ -39,7 +39,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://bentleybuilds.github.io/crwn_clothing",
+  "homepage": "http://bentleybuilds.github.io/crwn_clothing/",
   "devDependencies": {
     "gh-pages": "^2.2.0"
   }
