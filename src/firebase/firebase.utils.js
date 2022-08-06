@@ -1,6 +1,6 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import {getFirestore} from 'firebase/firestore';
+import {getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword} from 'firebase/auth';
 
 const config = {
     apiKey: "AIzaSyDSCHXdq3wzNzNgsTkIImAmblDtbyOzrYQ",
@@ -37,13 +37,24 @@ const config = {
     return userRef
   }
 
-  firebase.initializeApp(config);
+  const app = initializeApp(config);
 
-  export const auth = firebase.auth();
-  export const firestore = firebase.firestore();
+  export const auth = getAuth();
+  export const firestore = getFirestore(app);
 
-  const provider = new firebase.auth.GoogleAuthProvider();
+  const provider = new GoogleAuthProvider();
   provider.setCustomParameters({ prompt: 'select_account' });
-  export const signInWithGoogle = () => auth.signInWithPopup(provider);
+  export const signInWithGoogle = () => signInWithPopup(provider);
+  export const signInWithEmail = (email,password) => {
+   return( signInWithEmailAndPassword(auth,email,password)
+    .then((userCredential) => {
+      const user = userCredential.user
+    })
+    .catch((error)=>{
+      const errorCode = error.code
+      const errorMessage = error.message
+      console.log(errorCode,errorMessage)
+    }))
+  }
 
-  export default firebase;
+  export default app;

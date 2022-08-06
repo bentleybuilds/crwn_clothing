@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route,BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import LandingPage from './pages/landingPage/landingPage.jsx'
 import ShopPage from './pages/shop/shop.jsx'
@@ -44,12 +44,21 @@ class App extends React.Component {
   render(){
     return (
       <div>
+        <Router basename = '/crwn_clothing'>
+
         <Header currentUser={this.state.currentUser}/>
         <Switch>
-          <Route  exact path='/' component={LandingPage} />
-          <Route exact path='/shop' component={ShopPage} />
-          <Route exact path='/signIn' component={SignInAndSignUpPage} />
+          <Route  path='/shop'  >
+            <ShopPage />
+            </Route>
+          <Route  path='/signIn'>
+            <SignInAndSignUpPage />
+            </Route>
+          <Route   path='/' >
+            <LandingPage />
+          </Route>
         </Switch>
+        </Router>
       </div>
     );
   }
